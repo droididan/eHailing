@@ -23,14 +23,17 @@ import android.view.ViewGroup
 
 
 /**
- * Base Fragment class with helper methods for handling views and back button events.
- *
+ * Base Fragment class
  * @see Fragment
  */
 abstract class BaseFragment : Fragment() {
 
     abstract fun layoutId(): Int
-
+    abstract fun render()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
             inflater.inflate(layoutId(), container, false)
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+    }
 }
