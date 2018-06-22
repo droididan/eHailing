@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">eHailing</string>
+    <string name="image_description">Station Image</string>
 </resources>

@@ -6,10 +6,12 @@ import com.ehailing.ehailing.R
 import com.ehailing.ehailing.base.BaseFragment
 import kotlinx.android.synthetic.main.taxi_fragment.*
 import org.koin.android.architecture.ext.viewModel
+import org.koin.android.ext.android.inject
 
 class TaxiFragment : BaseFragment() {
 
-    val viewModel : TaxiViewModel by viewModel()
+    private val viewModel: TaxiViewModel by viewModel()
+    private val adapter: TaxiAdapter by inject()
 
     override fun layoutId(): Int = R.layout.taxi_fragment
 
@@ -24,12 +26,12 @@ class TaxiFragment : BaseFragment() {
     }
 
     private fun initRecyclerView() {
-        recyclerView.adapter
+        recyclerView.adapter = adapter
     }
 
     override fun render() {
         viewModel.uiData.observe(this, Observer {
-
+            adapter.stations = it ?: listOf()
         })
 
         viewModel.failure.observe(this, Observer {
