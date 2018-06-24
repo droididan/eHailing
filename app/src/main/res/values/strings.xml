@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">eHailing</string>
     <string name="image_description">Station Image</string>
+    <string name="error_message">Can\'t load the data...</string>
 </resources>

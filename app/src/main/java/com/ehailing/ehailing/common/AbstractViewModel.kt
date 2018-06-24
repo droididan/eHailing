@@ -16,7 +16,8 @@ abstract class AbstractViewModel : ViewModel() {
     protected fun handleFailure(failure: Throwable) {
         this.failure.value = failure
     }
-    val disposables = CompositeDisposable()
+
+    private val disposables = CompositeDisposable()
 
     fun launch(job: () -> Disposable) {
         disposables.add(job())

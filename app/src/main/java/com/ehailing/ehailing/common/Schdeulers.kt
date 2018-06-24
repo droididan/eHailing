@@ -9,7 +9,7 @@ import io.reactivex.schedulers.Schedulers
 
 
 /**
- * Use SchedulerProvider configuration for Single
+ * Use SchedulerProvider configuration for Observable
  */
 fun <T> Observable<T>.with(schedulerProvider: SchedulerProvider): Observable<T> = observeOn(schedulerProvider.ui()).subscribeOn(schedulerProvider.io())
 

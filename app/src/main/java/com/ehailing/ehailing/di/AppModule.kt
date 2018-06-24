@@ -14,7 +14,6 @@ val appModule = applicationContext {
     // Taxis Module
     viewModel { TaxiViewModel(get(), get()) }
     bean { TaxiRepositoryImpl(get()) as TaxiRepository }
-    bean { TaxiAdapter() }
     bean { LocalSource() }
 }
 
