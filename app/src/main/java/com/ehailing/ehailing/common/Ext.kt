@@ -26,12 +26,12 @@ fun snackBar(view: View, message: String) = Snackbar
         .apply { show() }
 
 fun DateTime.formatPretty() : String {
-    val updateTime = this.plusMinutes(updateRandomETA())?.millis
-    val diff = updateTime!! - DateTime.now().millis
+    val updateTime = this.plusMinutes(updateRandomETA())?.millis ?: 0
+    val diff = updateTime - DateTime.now().millis
     val seconds = diff / 1000
     val minutes = seconds / 60
     val hours = minutes / 60
-    return if (hours > 0) "${hours}h ${minutes}m" else "${minutes}m"
+    return if (hours > 0) "${hours}h ${minutes - (hours * 60)}m" else "${minutes}m"
 }
 
 // Generate random number between -4 to 10
