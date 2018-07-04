@@ -4,7 +4,9 @@ import android.arch.lifecycle.Observer
 import com.ehailing.ehailing.data.StationModel
 import com.ehailing.ehailing.data.TaxiRepository
 import com.ehailing.ehailing.di.testApp
+import com.ehailing.ehailing.ui.taxis.StationRender
 import com.ehailing.ehailing.ui.taxis.TaxiViewModel
+import junit.framework.Assert
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -18,10 +20,10 @@ import org.mockito.MockitoAnnotations
 
 class TaxiViewModelTest : KoinTest {
     val viewModel: TaxiViewModel by inject()
-    val repository: TaxiRepository by inject()
+    private val repository: TaxiRepository by inject()
 
     @Mock
-    lateinit var uiData: Observer<List<StationModel>>
+    lateinit var uiData: Observer<List<StationRender>>
 
     @Before
     fun before() {
@@ -35,13 +37,14 @@ class TaxiViewModelTest : KoinTest {
     }
 
     @Test
-    fun getStations() {
-
-        // Observe
-        viewModel.uiData.observeForever(uiData)
+    fun testStationsAreNotNull() {
         val stations = repository.getStations()
+        Assert.assertNotNull(stations)
+    }
 
-
-
+    @Test fun testGetStationsFailed() {
+        val test = repository.getStations().test()
+        test.awaitTerminalEvent()
+        test.assertValue { it.isEmpty() }
     }
 }

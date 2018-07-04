@@ -28,7 +28,6 @@ class TaxiFragment : BaseFragment() {
     private fun initRecyclerView() {
         adapter = TaxiAdapter { snackBar(main, it.title) }
         recyclerView.adapter = adapter
-
     }
 
     override fun render() {

@@ -14,12 +14,14 @@ fun <T> Observable<T>.with(schedulerProvider: SchedulerProvider): Observable<T> 
 
 fun Completable.with(schedulerProvider: SchedulerProvider): Completable = observeOn(schedulerProvider.ui()).subscribeOn(schedulerProvider.io())
 
+// rx scheduler for the app
 class ApplicationSchedulerProvider : SchedulerProvider {
     override fun io() = Schedulers.io()
     override fun ui() = AndroidSchedulers.mainThread()
     override fun computation() = Schedulers.computation()
 }
 
+// rx scheduler for testing
 class TestSchedulerProvider : SchedulerProvider {
     override fun io(): Scheduler = Schedulers.trampoline()
     override fun ui(): Scheduler = Schedulers.trampoline()

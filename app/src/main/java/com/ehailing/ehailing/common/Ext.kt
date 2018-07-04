@@ -12,27 +12,32 @@ import org.joda.time.DateTime
 import java.util.*
 
 
+// use this to avoid layout inflater boilerplate
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int): View =
         LayoutInflater.from(context).inflate(layoutRes, this, false)
 
+// load resource files with Glide
 fun ImageView.loadFromRes(resource: Int) =
         Glide.with(this.context.applicationContext)
                 .load(resource)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(this)
 
+// show snackBar
 fun snackBar(view: View, message: String) = Snackbar
         .make(view, message, Snackbar.LENGTH_SHORT)
         .apply { show() }
 
-fun DateTime.formatPretty() : String {
-    val updateTime = this.plusMinutes(updateRandomETA())?.millis ?: 0
-    val diff = updateTime - DateTime.now().millis
+// show the ETA time formatted pretty
+fun Long.formatPretty() : String {
+    val diff = this - DateTime.now().millis
     val seconds = diff / 1000
     val minutes = seconds / 60
     val hours = minutes / 60
+
+    // format the string with/without hours
     return if (hours > 0) "${hours}h ${minutes - (hours * 60)}m" else "${minutes}m"
 }
 
-// Generate random number between -4 to 10
-fun updateRandomETA() = Random().nextInt(10 + 1 + 4) - 4;
+// pick randomly between 6 and -6
+fun updateRandomETA() = Random().nextInt(6 + 1 + 6) - 6
